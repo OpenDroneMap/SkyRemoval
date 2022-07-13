@@ -12,7 +12,7 @@ import onnx
 import onnxruntime as ort
 
 # This version should match the tag in the repository
-version = "v1.0.0"
+version = "v1.0.1"
 default_model_url = "https://github.com/OpenDroneMap/SkyRemoval/releases/download/%s/model.zip" % version 
 default_model_folder = "model"
 url_file = os.path.join(default_model_folder, 'url.txt')
