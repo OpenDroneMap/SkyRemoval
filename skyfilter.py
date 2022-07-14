@@ -16,11 +16,11 @@ provider = "CUDAExecutionProvider" if "CUDAExecutionProvider" in ort.get_availab
 
 class SkyFilter():
 
-    def __init__(self, args):
+    def __init__(self, model = gv.default_model_url, ignore_cache = False, width = 384, height = 384):
 
-        self.model = args.model
-        self.ignore_cache = args.ignore_cache
-        self.width, self.height = args.width, args.height
+        self.model = model
+        self.ignore_cache = ignore_cache
+        self.width, self.height = width, height
 
         print(' ?> Using provider %s' % provider)
         self.load_model()

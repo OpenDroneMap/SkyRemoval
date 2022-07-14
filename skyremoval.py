@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    filter = SkyFilter(args)
+    filter = SkyFilter(args.model, args.ignore_cache, args.width, args.height)
     filter.run(args.source, args.dest)
     
 
