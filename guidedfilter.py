@@ -1,18 +1,20 @@
 import numpy as np
 
+# Based on Fast Guided Filter
+# Kaiming He, Jian Sun
+# https://arxiv.org/abs/1505.00996
+
 def box(img, radius):
     dst = np.zeros_like(img)
     (r, c) = img.shape
 
-    s = [1] * img.ndim
-    s[0] = radius
+    s = [radius, 1]
     c_sum = np.cumsum(img, 0)
     dst[0:radius+1, :, ...] = c_sum[radius:2*radius+1, :, ...]
     dst[radius+1:r-radius, :, ...] = c_sum[2*radius+1:r, :, ...] - c_sum[0:r-2*radius-1, :, ...]
     dst[r-radius:r, :, ...] = np.tile(c_sum[r-1:r, :, ...], s) - c_sum[r-2*radius-1:r-radius-1, :, ...]
 
-    s = [1] * img.ndim
-    s[1] = radius
+    s = [1, radius]
     c_sum = np.cumsum(dst, 1)
     dst[:, 0:radius+1, ...] = c_sum[:, radius:2*radius+1, ...]
     dst[:, radius+1:c-radius, ...] = c_sum[:, 2*radius+1 : c, ...] - c_sum[:, 0 : c-2*radius-1, ...]
