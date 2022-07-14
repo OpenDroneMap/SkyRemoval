@@ -5,11 +5,11 @@ import os
 import glob
 import argparse
 import utils
-from cv2.ximgproc import guidedFilter
 import urllib.request 
 import zipfile
 import onnx
 import onnxruntime as ort
+from guidedfilter import guided_filter
 
 # This version should match the tag in the repository
 version = "v1.0.1"
@@ -17,6 +17,8 @@ default_model_url = "https://github.com/OpenDroneMap/SkyRemoval/releases/downloa
 default_model_folder = "model"
 url_file = os.path.join(default_model_folder, 'url.txt')
 interpolation_mode = 'bicubic'
+guided_filter_radius, guided_filter_eps = 20, 0.01
+
 
 # Use GPU if it is available, otherwise CPU
 provider = "CUDAExecutionProvider" if "CUDAExecutionProvider" in ort.get_available_providers() else "CPUExecutionProvider"
@@ -167,8 +169,13 @@ class SkyFilter():
 
     def refine(self, pred, img):
 
-        r, eps = 20, 0.01
-        refined = guidedFilter(img[:,:,2], pred[:,:,0], r, eps)
+
+        #GF = GuidedFilter(img[:,:,2], guided_filter_radius, guided_filter_eps)
+        #refined = GF.filter(pred[:,:,0])
+
+        refined = guided_filter(img[:,:,2], pred[:,:,0], guided_filter_radius, guided_filter_eps)
+
+        #refined = guidedFilter(img[:,:,2], pred[:,:,0], r, eps)
 
         res = np.clip(refined, a_min=0, a_max=1)
         

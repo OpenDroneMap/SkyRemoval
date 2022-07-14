@@ -1,4 +1,5 @@
 numpy
 onnxruntime
 onnxruntime-gpu
-opencv-contrib-python
+opencv
+scipy
