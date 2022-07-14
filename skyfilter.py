@@ -122,7 +122,6 @@ class SkyFilter():
     def refine(self, pred, img):
 
         refined = guided_filter(img[:,:,2], pred[:,:,0], gv.guided_filter_radius, gv.guided_filter_eps)
-        #refined = _gf_gray(img[:,:,2], pred[:,:,0], gv.guided_filter_radius, gv.guided_filter_eps)
 
         res = np.clip(refined, a_min=0, a_max=1)
         
@@ -180,7 +179,11 @@ class SkyFilter():
         img_name = os.path.basename(img_path)
         fpath = os.path.join(dest, img_name)
 
-        cv2.imwrite(fpath[:-4] + '_mask.png', mask)
+        fname, _ = os.path.splitext(fpath)
+        mask_name = fname + '_mask.png'
+        cv2.imwrite(mask_name, mask)
+        
+        return mask_name
 
 
 
