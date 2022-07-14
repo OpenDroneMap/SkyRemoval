@@ -3,4 +3,3 @@ onnx
 onnxruntime
 onnxruntime-gpu
 opencv
-scipy

@@ -122,6 +122,7 @@ class SkyFilter():
     def refine(self, pred, img):
 
         refined = guided_filter(img[:,:,2], pred[:,:,0], gv.guided_filter_radius, gv.guided_filter_eps)
+        #refined = _gf_gray(img[:,:,2], pred[:,:,0], gv.guided_filter_radius, gv.guided_filter_eps)
 
         res = np.clip(refined, a_min=0, a_max=1)
         

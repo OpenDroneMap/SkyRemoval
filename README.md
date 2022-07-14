@@ -50,8 +50,3 @@ optional arguments:
 
 If you want to speed up the processing, you can use CUDA. Check out the following link for more information:
 https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html
-
-## Reference
-
-The fast guided filter implementation is credited to:
-https://github.com/swehrwein/python-guided-filter
