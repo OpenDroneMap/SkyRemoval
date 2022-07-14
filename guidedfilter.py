@@ -2,7 +2,7 @@ import numpy as np
 
 def box(img, radius):
     dst = np.zeros_like(img)
-    (r, c) = img.shape[:2]
+    (r, c) = img.shape
 
     s = [1] * img.ndim
     s[0] = radius
