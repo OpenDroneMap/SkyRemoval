@@ -6,7 +6,7 @@ import glob
 import argparse
 import utils
 from cv2.ximgproc import guidedFilter
-import urllib.request 
+import urllib.request
 import zipfile
 import onnx
 import onnxruntime as ort
@@ -190,7 +190,7 @@ class SkyFilter():
         start = time.time()
 
         # Filter files to only include images
-        img_names = [name for name in img_names if os.path.splitext(name)[1] in ['.jpg', '.png', '.jpeg', '.bmp', '.tif', '.tiff']]
+        img_names = [name for name in img_names if os.path.splitext(name)[1].lower() in ['.jpg', '.png', '.jpeg', '.bmp', '.tif', '.tiff']]
 
         for idx in range(len(img_names)):
             img_name = img_names[idx]
@@ -200,9 +200,11 @@ class SkyFilter():
         expired = time.time() - start
                 
         print('\n ?> Done in %.2f seconds' % expired)
-        print(' ?> Elapsed time per image: %.2f seconds' % (expired / len(img_names)))
-        print('\n ?> Output saved in ' + self.dest)
-
+        if len(img_names) > 0:
+            print(' ?> Elapsed time per image: %.2f seconds' % (expired / len(img_names)))
+            print('\n ?> Output saved in ' + self.dest)
+        else:
+            print(' ?> No images found')
 
 
     def run_img(self, img_path):
